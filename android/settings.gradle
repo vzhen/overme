@@ -1,0 +1,3 @@
+rootProject.name = 'OverMe'
+
+include ':app'
