@@ -10,7 +10,7 @@ const routeConfiguration = {
 // going to disable the header for now
 const stackNavigatorConfiguration = { 
   headerMode: 'none',
-  initialRouteName: 'TabBarNavigation'
+  initialRouteName: 'SplashScreenNavigation'
 }
  
 export const AppNavigator = StackNavigator(routeConfiguration,stackNavigatorConfiguration)

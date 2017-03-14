@@ -24,7 +24,7 @@ class ProductCreate extends Component {
     super(props);
     this.state = {
       name: '',
-      price: '0',
+      price: '',
       photoURLs: {},
       description: ''
     }

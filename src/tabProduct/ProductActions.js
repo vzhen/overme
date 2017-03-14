@@ -1,4 +1,6 @@
 import firebase from 'firebase';
+import { NavigationActions } from 'react-navigation'
+import validator from 'validator';
 import {
   LISTENING_PRODUCT_SUCCEEDED,
   LOADING_PRODUCTS_SUCCEEDED,
@@ -59,35 +61,37 @@ export const createProduct = (name, price, description, photoURLs) => {
   const { currentUser } = firebase.auth();
   const uploadPromises = [];
   const seller = {
-    displayName: 'currentUser.displayName',
-    photoURL: 'currentUser.photoURL',
-    uid: 'currentUser.uid'
+    displayName: currentUser.displayName,
+    photoURL: currentUser.photoURL,
+    uid: currentUser.uid
   };
   
   return (dispatch) => {
-    
-    // Upload photos.
-    for (let key in photoURLs) {
-      if (photoURLs.hasOwnProperty(key)) {
-        uploadPromises.push(uploadImage(photoURLs[key], 'images/products'));
-      }
+    if (validator.isEmpty(name)) {
+      
     }
+    // // Upload photos.
+    // for (let key in photoURLs) {
+    //   if (photoURLs.hasOwnProperty(key)) {
+    //     uploadPromises.push(uploadImage(photoURLs[key], 'images/products'));
+    //   }
+    // }
 
-    // Wait for the uploaded photo url
-    Promise.all(uploadPromises).then((urls) => {
-      const photoObj = {};
-      if (urls.length > 0) {
-        // Prepare photo object reference
-        for (let i = 0; i < urls.length; i++ ) {
-          const photoPushed = firebase.database().ref().push();
-          const photoKey = photoPushed.key;
-          photoObj[photoKey] = urls[i];
-        }
-        firebase.database().ref('products')
-          .push({ name, price, description, seller, photoURLs: photoObj })
-          .then(() => {})
-      }
-    })
+    // // Wait for the uploaded photo url
+    // Promise.all(uploadPromises).then((urls) => {
+    //   const photoObj = {};
+    //   if (urls.length > 0) {
+    //     // Prepare photo object reference
+    //     for (let i = 0; i < urls.length; i++ ) {
+    //       const photoPushed = firebase.database().ref().push();
+    //       const photoKey = photoPushed.key;
+    //       photoObj[photoKey] = urls[i];
+    //     }
+    //     firebase.database().ref('products')
+    //       .push({ name, price, description, seller, photoURLs: photoObj })
+    //       .then(() => { dispatch(NavigationActions.back()) })
+    //   }
+    // })
   }
 }
 

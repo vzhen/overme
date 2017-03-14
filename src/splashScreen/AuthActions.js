@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import Auth0Lock from 'react-native-lock';
-import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 import { LOGGING_USER_SUCCEEDED, LOGGINGOUT_USER_SUCCEEDED } from '../constants/ActionTypes';
 import { AUTH0_CLIENTID, AUTH0_DOMAIN } from '../constants/configs';
@@ -95,7 +94,7 @@ export const setupProfile = (displayName, phoneNumber, photoURL) => {
       // Create user profile without photo
       userProfileRef.update({ displayName, phoneNumber }).then(() => { 
         dispatch(loggingUserSucceeded({ displayName, phoneNumber }));
-        Actions.tabbar({ type: 'reset' });
+        // Actions.tabbar({ type: 'reset' });
       });
 
     } else {
@@ -106,7 +105,7 @@ export const setupProfile = (displayName, phoneNumber, photoURL) => {
           userProfileRef.update({ displayName, phoneNumber, photoURL: uploadedURL })
             .then(() => { 
               dispatch(loggingUserSucceeded({ displayName, phoneNumber, photoURL: uploadedURL }));
-              Actions.tabbar({ type: 'reset' });
+              // Actions.tabbar({ type: 'reset' });
             });
         });
 
@@ -139,7 +138,6 @@ export const logout = () => {
   const asyncKeys = ['auth'];
   AsyncStorage.multiRemove(asyncKeys);
   firebase.auth().signOut();
-  Actions.login({ type: 'reset' });
   return (dispatch) => {
     dispatch(loggingOutUserSucceeded());
   }

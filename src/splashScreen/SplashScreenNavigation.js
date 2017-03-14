@@ -12,8 +12,8 @@ class SplashScreen extends Component {
     const { auth } = this.props;
     if (!_.isEmpty(auth)) {
       if (auth.displayName) {
-        // this.props.navigation.navigate('TabBarNavigation');
-        this._navigateTo('TabBarNavigation');
+        this.props.navigation.navigate('TabBarNavigation');
+        // this._navigateTo('TabBarNavigation');
       } else {
         console.log('go setup profile');
         // Actions.profileCreate({ type: 'reset' });
@@ -25,21 +25,21 @@ class SplashScreen extends Component {
     const { auth } = nextProps;
     if (!_.isEmpty(auth)) {
       if (auth.displayName) {
-        // this.props.navigation.navigate('TabBarNavigation');
-        this._navigateTo('TabBarNavigation');
+        this.props.navigation.navigate('TabBarNavigation');
+        // this._navigateTo('TabBarNavigation');
       } else {
         console.log('go setup profile');
       }
     }
   }
 
-  _navigateTo = (routeName) => {
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName })]
-    })
-    this.props.navigation.dispatch(resetAction)
-  }
+  // _navigateTo = (routeName) => {
+  //   const resetAction = NavigationActions.reset({
+  //     index: 0,
+  //     actions: [NavigationActions.navigate({ routeName })]
+  //   })
+  //   this.props.navigation.dispatch(resetAction)
+  // }
 
   render() {
     return (
