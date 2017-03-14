@@ -6,7 +6,8 @@ import ReduxThunk from 'redux-thunk';
 import ReduxLogger from 'redux-logger';
 import reducers from './reducers';
 import { FIREBASE_CONFIG } from '../constants/configs';
-import TabBarNavigation from '../tabBar/TabBarNavigation';
+// import TabBarNavigation from '../tabBar/TabBarNavigation';
+import AppNavigation from './AppNavigation';
 
 class App extends Component {
   componentWillMount() {
@@ -18,7 +19,7 @@ class App extends Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk, ReduxLogger()));
     return (
       <Provider store={store}>
-        <TabBarNavigation />
+        <AppNavigation />
       </Provider> 
     )
   }
