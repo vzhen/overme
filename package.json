@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "firebase": "^3.7.0",
+    "geofire": "^4.1.2",
     "lodash": "^4.17.4",
     "native-base": "^2.0.12",
     "react": "~15.4.1",

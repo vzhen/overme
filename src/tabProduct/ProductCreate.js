@@ -6,7 +6,6 @@ import uuidV4 from 'uuid/v4';
 import _ from 'lodash';
 import MultiImagePicker from '../common/MultiImagePicker';
 import ImageList from '../common/ImageList';
-import { createProduct } from '../app/actions';
 
 class ProductCreate extends Component {
   static navigationOptions = {
@@ -31,8 +30,7 @@ class ProductCreate extends Component {
   }
 
   postProduct = () => {
-    const { name, price, description, photoURLs } = this.state;
-    this.props.createProduct(name, price, description, photoURLs);
+    
   }
 
   componentDidMount() {
@@ -81,4 +79,4 @@ class ProductCreate extends Component {
   }
 }
 
-export default connect(null, { createProduct })(ProductCreate);
+export default connect(null)(ProductCreate);

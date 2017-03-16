@@ -3,9 +3,9 @@ import { View, Image, StyleSheet, Button } from 'react-native';
 
 /**
  * attributes
- *  - editable
- *  - images
- *  - onRemove
+ *  - images (required)
+ *  - onRemove (optional)
+ *  - editable (optional)
  * 
  * Usage
  *  <ImageList editable images={photoURLs} onRemove={(key) => this.handleRemove(key)}/>
