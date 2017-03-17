@@ -72,6 +72,7 @@
 		75AB3DA41C6741FDA67D2799 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25B8AD319D4547E58CCADAEB /* Zocial.ttf */; };
 		2C499C2CA4664BCFA08C9ABC /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA6D90F545A4E4DB7A59553 /* libRNFetchBlob.a */; };
 		045ACB70070142C29933D9C1 /* libA0RNLock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FEEC2BDE5F541E6976BF18E /* libA0RNLock.a */; };
+		1A60367E21074675A2639F87 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD2E2401BB5403791DDC80A /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -331,6 +332,8 @@
 		AAA6D90F545A4E4DB7A59553 /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		1293817D58FE4537A11E830F /* A0RNLock.xcodeproj */ = {isa = PBXFileReference; name = "A0RNLock.xcodeproj"; path = "../node_modules/react-native-lock/ios/A0RNLock.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		7FEEC2BDE5F541E6976BF18E /* libA0RNLock.a */ = {isa = PBXFileReference; name = "libA0RNLock.a"; path = "libA0RNLock.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		23F9650BF0604CDCBE664565 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; name = "AirMaps.xcodeproj"; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		DBD2E2401BB5403791DDC80A /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +363,7 @@
 				19A07036335B43CCBB1DF354 /* libRNImagePicker.a in Frameworks */,
 				2C499C2CA4664BCFA08C9ABC /* libRNFetchBlob.a in Frameworks */,
 				045ACB70070142C29933D9C1 /* libA0RNLock.a in Frameworks */,
+				1A60367E21074675A2639F87 /* libAirMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +533,7 @@
 				A856EDCF33454F1095B8776E /* RNImagePicker.xcodeproj */,
 				C2FC2D5C65734EDCA41CBB9F /* RNFetchBlob.xcodeproj */,
 				1293817D58FE4537A11E830F /* A0RNLock.xcodeproj */,
+				23F9650BF0604CDCBE664565 /* AirMaps.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1136,12 +1141,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-lock\ios\A0RNLock/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\ios/**",
 				);
 			};
 			name = Debug;
@@ -1165,12 +1172,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-lock\ios\A0RNLock/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\ios/**",
 				);
 			};
 			name = Release;
@@ -1195,6 +1204,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-lock\ios\A0RNLock/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\ios/**",
 				);
 			};
 			name = Debug;
@@ -1218,6 +1228,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-lock\ios\A0RNLock/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\ios/**",
 				);
 			};
 			name = Release;
@@ -1250,12 +1261,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-lock\ios\A0RNLock/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\ios/**",
 				);
 			};
 			name = Debug;
@@ -1288,12 +1301,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-lock\ios\A0RNLock/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\ios/**",
 				);
 			};
 			name = Release;
@@ -1321,6 +1336,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1345,6 +1361,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

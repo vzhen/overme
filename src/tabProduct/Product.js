@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { Dimensions, View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Thumbnail, Content, H1, H2, H3, Left, Right, Card, CardItem, Grid, Col, Row } from 'native-base';
+import MapView from 'react-native-maps';
 import ImageList from '../common/ImageList';
 
+const { width, height } = Dimensions.get('window');
 const mockData = { 
   id1: {
     name: 'Apple iPhone 5 grey 16GB',
@@ -76,7 +78,16 @@ const styles = {
   },
 
   title: { flex: 3 },
-  price: { flex: 1, alignItems: 'flex-end' }
+  price: { flex: 1, alignItems: 'flex-end' },
+  
+  mapWrap: {
+    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    width: width,
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+ },
 }
 
 class Product extends Component {
@@ -102,6 +113,22 @@ class Product extends Component {
             </View>
             <Text>{mockData[productId].description}</Text>
           </View> 
+
+          <View style={styles.mapWrap}>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}>
+              <MapView.Marker
+                coordinate={{latitude: 37.78825, longitude: -122.4324}}
+                title='title'
+              />
+            </MapView>
+          </View>
         </View>
       </Content>
     )

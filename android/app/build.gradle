@@ -131,6 +131,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-maps')
     compile project(':react-native-lock')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-image-picker')
