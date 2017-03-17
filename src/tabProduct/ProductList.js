@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 import { Content, List, Text } from 'native-base';
 import ProductListItem from './ProductListItem';
 
@@ -12,17 +12,29 @@ const mockData = {
     owner: {
       name: 'Chok Wee Ching',
       photoUrl: 'https://goo.gl/o2GAOT'
+    },
+    g: '9q8yyrry8q',
+    l: {
+      0: 37.37,
+      1: -122.41
     }
   },
-  id2: { 
+
+  id2: {
     name: 'Xiaomi Redmi note 4', 
     photoUrl: 'https://goo.gl/EcxG0S', 
     price: '800',
     owner: {
       name: 'Chok Wee Ching',
       photoUrl: 'https://goo.gl/o2GAOT'
+    },
+    g: "9q8yyrpbbk",
+    l: {
+      0: 37.78763,
+      1: -122.41
     }
   },
+  
   id3: { 
     name: 'Mi Box', 
     photoUrl: 'https://goo.gl/jYwx8i', 
@@ -30,7 +42,18 @@ const mockData = {
     owner: {
       name: 'Chok Wee Ching',
       photoUrl: 'https://goo.gl/o2GAOT'
+    },
+    g: "9q8yymzb07",
+    l: {
+      0: 37.78063,
+      1: -122.41
     }
+  }
+}
+
+const styles = {
+  content: {
+    backgroundColor: '#FFFFFF'
   }
 }
 
@@ -57,7 +80,7 @@ class ProductList extends Component {
 
   render() {
     return (
-      <Content>
+      <Content style={styles.content}>
         <List
           dataArray={mockData}
           renderRow={(data, sectionId, rowId) => 

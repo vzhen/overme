@@ -62,17 +62,17 @@ const styles = {
     borderColor: '#F1F1F1'
   },
 
-  detailWrap: { 
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
-
   titleWrap: {
     flex: 1, 
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: 10,
     paddingBottom : 10
+  },
+
+  detailWrap: { 
+    paddingLeft: 15,
+    paddingRight: 15,
   },
 
   title: { flex: 3 },
