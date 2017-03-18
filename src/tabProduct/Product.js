@@ -18,6 +18,11 @@ const mockData = {
     owner: {
       name: 'Chok Wee Ching',
       photoUrl: 'https://goo.gl/o2GAOT'
+    },
+    g: '9q8yyrry8q',
+    l: {
+      0: 37.37,
+      1: -122.41
     }
   },
   id2: {
@@ -75,15 +80,18 @@ const styles = {
   detailWrap: { 
     paddingLeft: 15,
     paddingRight: 15,
+    paddingBottom : 10
   },
 
   title: { flex: 3 },
   price: { flex: 1, alignItems: 'flex-end' },
   
   mapWrap: {
-    ...StyleSheet.absoluteFillObject,
-    height: 400,
-    width: width,
+    position: 'relative',
+    height: 300,
+    width: width - 30,
+    marginLeft: 15,
+    marginRight: 15
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -91,6 +99,10 @@ const styles = {
 }
 
 class Product extends Component {
+  componentDidMount() {
+    this.refs.map.fitToElements(true, {});
+  }
+
   render() {
     const { state } = this.props.navigation;
     const productId = state.params.id;
@@ -116,15 +128,16 @@ class Product extends Component {
 
           <View style={styles.mapWrap}>
             <MapView
+              ref='map'
               style={styles.map}
-              initialRegion={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+              region={{
+                latitude: 38.784,// mockData[productId].l[0],
+                longitude: -122.41,// mockData[productId].l[1],
+                latitudeDelta: 0.9,
+                longitudeDelta: 0.9,
               }}>
               <MapView.Marker
-                coordinate={{latitude: 37.78825, longitude: -122.4324}}
+                coordinate={{ latitude: mockData[productId].l[0], longitude: mockData[productId].l[1] }}
                 title='title'
               />
             </MapView>
