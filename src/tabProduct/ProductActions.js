@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from '../app/FirebaseInit';
 import {
   LISTENING_PRODUCT_SUCCEEDED,
   LOADING_PRODUCTS_SUCCEEDED,

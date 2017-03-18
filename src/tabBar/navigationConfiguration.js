@@ -4,8 +4,8 @@ import TabSettingNavigation from '../tabSetting/TabSettingNavigation';
 import TabProductNavigation from '../tabProduct/TabProductNavigation';
 
 const routeConfiguration = {
-  TabProductNavigation: { screen: TabProductNavigation },
   TabHomeNavigation: { screen: TabHomeNavigation },
+  TabProductNavigation: { screen: TabProductNavigation },
   TabSettingNavigation: { screen: TabSettingNavigation },
 }
 

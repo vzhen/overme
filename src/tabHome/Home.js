@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
+import { connect } from 'react-redux';
+// import { geoQuery } from '../app/actions';
 
 class Home extends Component {
   static navigationOptions = {
@@ -12,6 +14,10 @@ class Home extends Component {
     })
   }
 
+  componentDidMount() {
+    // this.props.geoQuery([37.79, -122.41], 10);
+  }
+
   render() {
     return (
       <View>
@@ -22,4 +28,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect(null, {  })(Home);
