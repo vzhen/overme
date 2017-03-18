@@ -1,55 +1,9 @@
 import React, { Component } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 import { Content, List, Text } from 'native-base';
+import { connect } from 'react-redux';
+import { getProductsByUserId } from '../app/actions';
 import ProductListItem from './ProductListItem';
-
-
-const mockData = { 
-  id1: { 
-    name: 'Apple iPhone 5', 
-    photoUrl: 'https://goo.gl/Um6zzq', 
-    price: '2499',
-    owner: {
-      name: 'Chok Wee Ching',
-      photoUrl: 'https://goo.gl/o2GAOT'
-    },
-    g: '9q8yyrry8q',
-    l: {
-      0: 37.37,
-      1: -122.41
-    }
-  },
-
-  id2: {
-    name: 'Xiaomi Redmi note 4', 
-    photoUrl: 'https://goo.gl/EcxG0S', 
-    price: '800',
-    owner: {
-      name: 'Chok Wee Ching',
-      photoUrl: 'https://goo.gl/o2GAOT'
-    },
-    g: "9q8yyrpbbk",
-    l: {
-      0: 37.78763,
-      1: -122.41
-    }
-  },
-  
-  id3: { 
-    name: 'Mi Box', 
-    photoUrl: 'https://goo.gl/jYwx8i', 
-    price: '300',
-    owner: {
-      name: 'Chok Wee Ching',
-      photoUrl: 'https://goo.gl/o2GAOT'
-    },
-    g: "9q8yymzb07",
-    l: {
-      0: 37.78063,
-      1: -122.41
-    }
-  }
-}
 
 const styles = {
   content: {
@@ -78,11 +32,17 @@ class ProductList extends Component {
     console.log('select user');
   }
 
+  componentDidMount() {
+    this.props.getProductsByUserId('sms|5797235fe618d33da2eb0ad3');
+  }
+
   render() {
+    const { products } = this.props;
+    const uid = 'sms|5797235fe618d33da2eb0ad3';
     return (
       <Content style={styles.content}>
         <List
-          dataArray={mockData}
+          dataArray={products[uid]}
           renderRow={(data, sectionId, rowId) => 
             <ProductListItem
               onSelect={() => this.handleSelect(rowId)}
@@ -99,4 +59,8 @@ class ProductList extends Component {
   }
 }
 
-export default ProductList;
+const mapStateToProps = (state) => {
+  return { products: state.entities.product.list }
+}
+
+export default connect(mapStateToProps, { getProductsByUserId })(ProductList);
