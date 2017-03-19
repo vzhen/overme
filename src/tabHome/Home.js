@@ -1,31 +1,58 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Button } from 'react-native';
+import { Content, List, Text } from 'native-base';
 import { connect } from 'react-redux';
-// import { geoQuery } from '../app/actions';
+import { getNearbyProducts } from '../app/actions';
+import ProductListItem from '../tabProduct/ProductListItem';
 
 class Home extends Component {
   static navigationOptions = {
     title: 'Home'
   }
 
-  handleGetLocation() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
-    })
+  handleSelect(id) {
+    console.log(id);
+  }
+
+  handleSelectUser() {
+    console.log('navigate to user');
   }
 
   componentDidMount() {
-    // this.props.geoQuery([37.79, -122.41], 10);
+    this.props.getNearbyProducts([37.79, -122.41], 10);
   }
 
   render() {
     return (
       <View>
-        <Text>Load products around me</Text>
-        <Button onPress={() => this.handleGetLocation()} title='Get Location' />
+        <Text>My LatLng: {this.props.center}</Text>
+        <Text>Show products within: {this.props.radius}km</Text>
+        <List
+          dataArray={this.props.nearbyProducts}
+          renderRow={(data, sectionId, rowId) => 
+            <ProductListItem
+              onSelect={() => this.handleSelect(rowId)}
+              onSelectUser={() => this.handleSelectUser()}
+              photoUrl={data.photoUrls.id1}
+              name={data.name}
+              price={data.price}
+              distance={data.distance.toFixed(1)}
+              ownerName={data.owner.name}
+              ownerPhotoUrl={data.owner.photoUrl}
+            />
+          }
+        />
       </View>
     )
   }
 }
 
-export default connect(null, {  })(Home);
+const mapStateToProps = (state) => {
+  return { 
+    center: state.entities.home.center,
+    radius: state.entities.home.radius,
+    nearbyProducts: state.entities.home.nearbyProducts
+  }
+}
+
+export default connect(mapStateToProps, { getNearbyProducts })(Home);

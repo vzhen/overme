@@ -4,13 +4,22 @@ import GeoFire from 'geofire';
 const productRef = firebase.database().ref('products');
 const geoFire = new GeoFire(productRef);
 
-// export const geoQuery = (center, radius) => {
-//   geoFire.query({
-//     center: center,
-//     radius: radius
-//   });
-// }
+const getNearbyProducts = (center, radius) => {
+  return (dispatch) => {
+    geoFire.query({ center, radius})
+      .on("key_entered", function(key, location, distance) {
+        productRef.child(key).once('value', (snapshot) => {
+          dispatch({
+            type: 'GETTING_NEARBY_PRODUCT',
+            payload: { key, distance, value: snapshot.val() }
+          })
+        })
+      });
+    dispatch({
+      type: 'GETTING_USER_LATLNG',
+      payload: { center, radius }
+    })
+  }
+}
 
-// geoQuery.on("key_entered", function(key, location, distance) {
-//   console.log(key + " entered query at " + location + " (" + distance + " km from center)");
-// });
+export { getNearbyProducts };

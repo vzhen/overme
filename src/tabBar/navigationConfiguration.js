@@ -4,12 +4,13 @@ import TabSettingNavigation from '../tabSetting/TabSettingNavigation';
 import TabProductNavigation from '../tabProduct/TabProductNavigation';
 
 const routeConfiguration = {
-  TabHomeNavigation: { screen: TabHomeNavigation },
   TabProductNavigation: { screen: TabProductNavigation },
+  TabHomeNavigation: { screen: TabHomeNavigation },
   TabSettingNavigation: { screen: TabSettingNavigation },
 }
 
 const tabBarConfiguration = {
+  initialRouteName: 'TabHomeNavigation',
   tabBarPosition: 'bottom',
   tabBarOptions: {
     // activeTintColor: 'white',

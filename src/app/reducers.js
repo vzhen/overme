@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import AuthReducer from '../splashScreen/AuthReducer';
 import ProductReducer from '../tabProduct/ProductReducer';
+import HomeReducer from '../tabHome/HomeReducer';
 
 // Navigation Reducers
 import { NavigatorTabHome } from '../tabHome/navigationConfiguration';
@@ -12,7 +13,8 @@ import { AppNavigator } from './navigationConfiguration';
 export default combineReducers({
   entities: combineReducers({
     auth: AuthReducer,
-    product: ProductReducer
+    product: ProductReducer,
+    home: HomeReducer,
   }),
 
   navigationState: combineReducers({
