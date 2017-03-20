@@ -11,8 +11,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, center: action.payload.center, radius: action.payload.radius }
     
     case 'GETTING_NEARBY_PRODUCT': {
-      const { key, value, distance } = action.payload;
-      const mergeValue = Object.assign(value, { distance: distance });
+      const { key, location, distance, value } = action.payload;
+      const mergeValue = Object.assign(value, { distance: distance }, { location: location });
       return { ...state, nearbyProducts: { ...state.nearbyProducts, [key]: mergeValue } }
     }
 

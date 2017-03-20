@@ -10,7 +10,7 @@ const routeConfiguration = {
 }
 
 const tabBarConfiguration = {
-  initialRouteName: 'TabHomeNavigation',
+  initialRouteName: 'TabProductNavigation',
   tabBarPosition: 'bottom',
   tabBarOptions: {
     // activeTintColor: 'white',

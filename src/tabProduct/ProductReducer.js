@@ -20,7 +20,8 @@ export default (state = INITIAL_STATE, action) => {
 
     case LOADING_PRODUCTS_SUCCEEDED: {
       const { uid, key, value } = action.payload;
-      return { ...state, list: { ...state.list, [uid]: { ...state.list[uid], [key]: value } } };
+      const mergeValue = Object.assign({}, value, { location: location })
+      return { ...state, list: { ...state.list, [uid]: { ...state.list[uid], [key]: mergeValue } } };
     }
 
     case UPDATING_PRODUCTS_SUCCEEDED: {

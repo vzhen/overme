@@ -4,6 +4,7 @@ import { Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
 import uuidV4 from 'uuid/v4';
 import _ from 'lodash';
+import { createProduct } from '../app/actions';
 import MultiImagePicker from '../common/MultiImagePicker';
 import ImageList from '../common/ImageList';
 
@@ -24,38 +25,46 @@ class ProductCreate extends Component {
     this.state = {
       name: '',
       price: '',
-      photoURLs: {},
+      photoUrls: {},
       description: ''
     }
   }
 
-  postProduct = () => {
-    
+  handleGetLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+    })
   }
 
-  componentDidMount() {
-    this.props.navigation.setParams({ handlePost: this.postProduct });
+  postProduct = () => {
+    const { name, price, description, photoUrls } = this.state
+    this.props.createProduct(name, price, description, photoUrls);
   }
 
   handleRemove = (key) => {
     this.setState({
-      photoURLs: _.omit(this.state.photoURLs, key)
+      photoUrls: _.omit(this.state.photoUrls, key)
     })
   }
 
   handleSelect = (uri) => {
     const uuid = uuidV4();
     this.setState({
-      photoURLs: { ...this.state.photoURLs, [uuid]: uri }
+      photoUrls: { ...this.state.photoUrls, [uuid]: uri }
     })
   }
 
+  componentDidMount() {
+    this.handleGetLocation();
+    this.props.navigation.setParams({ handlePost: this.postProduct });
+  }
+
   render() {
-    const { name, price, description, photoURLs } = this.state;
+    const { name, price, description, photoUrls } = this.state;
     return (
       <Content>
         <ScrollView horizontal>
-          <ImageList editable images={photoURLs} onRemove={(key) => this.handleRemove(key)}/>
+          <ImageList editable images={photoUrls} onRemove={(key) => this.handleRemove(key)}/>
         </ScrollView>
         <ScrollView>
           <MultiImagePicker onSelect={(uri) => this.handleSelect(uri)} />
@@ -79,4 +88,4 @@ class ProductCreate extends Component {
   }
 }
 
-export default connect(null)(ProductCreate);
+export default connect(null, { createProduct })(ProductCreate);

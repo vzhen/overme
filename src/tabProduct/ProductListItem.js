@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Dimensions, StyleSheet } from 'react-native';
 import { Card, CardItem, Text, Thumbnail, Body, Left, Right, Button } from 'native-base';
+import Distance from '../common/Distance';
 
 const { width, height } = Dimensions.get('window');
 const styles = {
@@ -39,7 +40,11 @@ class ProductListItem extends Component {
         
         <CardItem style={styles.titleWrap} button onPress={() => this.handleSelect()}>
           <Text>{this.props.name}</Text>
-          <Text>{this.props.distance}km</Text>
+        </CardItem>
+
+        <CardItem>
+          <Left><Distance location1={this.props.location1} location2={this.props.locations} /></Left>
+          <Right><Text>RM {this.props.price}</Text></Right>
         </CardItem>
         
         <CardItem button onPress={() => this.handleSelectUser()}>
@@ -47,7 +52,6 @@ class ProductListItem extends Component {
               <Thumbnail small source={{ uri: this.props.ownerPhotoUrl }} />
               <Text>{this.props.ownerName}</Text>
           </Left>
-          <Right><Text>RM {this.props.price}</Text></Right>
         </CardItem>
         
       </Card>

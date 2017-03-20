@@ -50,6 +50,8 @@ class ProductList extends Component {
               photoUrl={data.photoUrl}
               name={data.name}
               price={data.price}
+              location1={[38.44, -122.41]}
+              location2={data.location}
               ownerName={data.owner.name}
               ownerPhotoUrl={data.owner.photoUrl}
             />

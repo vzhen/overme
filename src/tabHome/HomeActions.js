@@ -1,17 +1,17 @@
 import firebase from '../app/FirebaseInit';
 import GeoFire from 'geofire';
 
-const productRef = firebase.database().ref('products');
-const geoFire = new GeoFire(productRef);
+const productsRef = firebase.database().ref('products');
+const geoFire = new GeoFire(firebase.database().ref('productGeo'));
 
 const getNearbyProducts = (center, radius) => {
   return (dispatch) => {
     geoFire.query({ center, radius})
-      .on("key_entered", function(key, location, distance) {
-        productRef.child(key).once('value', (snapshot) => {
+      .on("key_entered", (key, location, distance) => {
+        productsRef.child(key).once('value', (snapshot) => {
           dispatch({
             type: 'GETTING_NEARBY_PRODUCT',
-            payload: { key, distance, value: snapshot.val() }
+            payload: { key, location, distance, value: snapshot.val() }
           })
         })
       });

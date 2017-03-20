@@ -23,6 +23,7 @@ class Home extends Component {
   }
 
   render() {
+    console.log
     return (
       <View>
         <Text>My LatLng: {this.props.center}</Text>
@@ -36,7 +37,8 @@ class Home extends Component {
               photoUrl={data.photoUrls.id1}
               name={data.name}
               price={data.price}
-              distance={data.distance.toFixed(1)}
+              location1={this.props.center}
+              location2={data.location}
               ownerName={data.owner.name}
               ownerPhotoUrl={data.owner.photoUrl}
             />
