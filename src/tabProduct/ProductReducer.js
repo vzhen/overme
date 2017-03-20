@@ -15,11 +15,13 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     
     case LISTENING_PRODUCT_SUCCEEDED: {
+      const { key, location } = action.payload;
+      console.log(key, location);
       return { ...state, viewed: action.payload };
     }
 
     case LOADING_PRODUCTS_SUCCEEDED: {
-      const { uid, key, value } = action.payload;
+      const { uid, key, value, location } = action.payload;
       const mergeValue = Object.assign({}, value, { location: location })
       return { ...state, list: { ...state.list, [uid]: { ...state.list[uid], [key]: mergeValue } } };
     }

@@ -1,5 +1,9 @@
 import firebase from '../app/FirebaseInit';
 import GeoFire from 'geofire';
+import validator from 'validator';
+import _ from 'lodash';
+import { NavigationActions } from 'react-navigation';
+
 import {
   LISTENING_PRODUCT_SUCCEEDED,
   LOADING_PRODUCTS_SUCCEEDED,
@@ -11,8 +15,7 @@ import { uploadImage } from '../app/actions';
 const rootRef = firebase.database().ref();
 const productsRef = rootRef.child('products');
 const userProductsRef = rootRef.child('userProducts');
-const productGeoRef = rootRef.child('productGeo');
-const geoFire = new GeoFire(firebase.database().ref('productGeo'));
+const productGeoFire = new GeoFire(firebase.database().ref('productGeo'));
 
 const listeningProductSucceeded = (product) => ({
   type: LISTENING_PRODUCT_SUCCEEDED,
@@ -39,7 +42,13 @@ export const getProductById = (id) => {
   return (dispatch) => {
     productsRef.child(id)
       .on('value', (snapshot) => {
-        dispatch(listeningProductSucceeded({ key: snapshot.key, ...snapshot.val() }))
+        productGeoFire.get(snapshot.key).then((location) => {
+          dispatch(listeningProductSucceeded({
+            location,
+            key: snapshot.key,
+            ...snapshot.val()
+          }))
+        })
       })
   }
 }
@@ -48,7 +57,7 @@ export const getProductsByUserId = (uid) => {
   return (dispatch) => {
     const ref = userProductsRef.child(uid);
       ref.on('child_added', (snapshot) => {
-        geoFire.get(snapshot.key).then((location) => {
+        productGeoFire.get(snapshot.key).then((location) => {
           dispatch(loadingProductsSucceeded({
             uid,
             location,
@@ -68,7 +77,10 @@ export const getProductsByUserId = (uid) => {
   }
 }
 
-export const createProduct = (name, price, description, photoUrls) => {
+export const createProduct = (name, price, photoUrls, latlng, description) => {
+  // TODO: disable form while submitting
+  // TODO: enable form while wrong input
+
   // Declare require variables
   const { currentUser } = firebase.auth();
   const uploadPromises = [];
@@ -77,32 +89,40 @@ export const createProduct = (name, price, description, photoUrls) => {
     photoUrl: currentUser.photoURL ,
     uid: currentUser.uid
   };
-  
   return (dispatch) => {
-    
-    for (let key in photoUrls) {
-      // Make sure there is new photo picked
-      if (photoUrls.hasOwnProperty(key)) {
-        uploadPromises.push(uploadImage(photoUrls[key], 'images/products'));
+    if (validator.isEmpty(name)) {
+      console.log('name is required');
+    } else if (!validator.isNumeric(price) && !validator.isDecimal(price)) {
+      console.log('price must be number only.');
+    } else if (_.isEmpty(photoUrls)) {
+      console.log('photo is required');
+    } else {
+      for (let key in photoUrls) {
+          // Make sure there is new photo picked
+          if (photoUrls.hasOwnProperty(key)) {
+            uploadPromises.push(uploadImage(photoUrls[key], 'images/products'));
+          }
       }
-    }
 
-    // Wait the uploaded photo url
-    Promise.all(uploadPromises).then((urls) => {
-      const photoObj = {};
-      if (urls.length > 0) {
-        // Prepare photo object reference
-        for (let i = 0; i < urls.length; i++ ) {
-          const photoPushed = firebase.database().ref().push();
-          const photoKey = photoPushed.key;
-          photoObj[photoKey] = urls[i];
+      // Wait the uploaded photo url
+      Promise.all(uploadPromises).then((urls) => {
+        const photoObj = {};
+        if (urls.length > 0) {
+          // Prepare photo object reference
+          for (let i = 0; i < urls.length; i++ ) {
+            const photoPushed = rootRef.push();
+            const photoKey = photoPushed.key;
+            photoObj[photoKey] = urls[i];
+          }
+          const productData = { name, price, description, owner, photoUrls: photoObj };
+          const newProductKey = productsRef.push().key;
+          productGeoFire.set(newProductKey, latlng);
+          productsRef.child(newProductKey).update(productData).then(() => {
+            dispatch(NavigationActions.back());
+          });
         }
-
-        const productData = { name, price, description, owner, photoUrls: photoObj };
-        const newProductKey = productsRef.push().key;
-        // geoProductsRef.set(newProductKey, [37.78063, -122.41]);
-        productsRef.child(newProductKey).update(productData)
-      }
-    })
+      })
+  
+    }
   }
 }

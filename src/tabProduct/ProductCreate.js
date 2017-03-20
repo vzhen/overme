@@ -10,14 +10,7 @@ import ImageList from '../common/ImageList';
 
 class ProductCreate extends Component {
   static navigationOptions = {
-    title: 'Create Product',
-    header: ({ state }) => ({
-      right: (
-        <Button onPress={() => state.params.handlePost()}>
-          <Text>POST</Text>
-        </Button>
-      ),
-    }),
+    title: 'Create Product'
   }
 
   constructor(props) {
@@ -26,19 +19,22 @@ class ProductCreate extends Component {
       name: '',
       price: '',
       photoUrls: {},
-      description: ''
+      description: '',
+      latlng: [30, 170]
     }
   }
 
   handleGetLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
+      this.setState({
+        latlng: [position.coords.latitude, position.coords.longitude]
+      })
     })
   }
 
-  postProduct = () => {
-    const { name, price, description, photoUrls } = this.state
-    this.props.createProduct(name, price, description, photoUrls);
+  handlePost = () => {
+    const { name, price, description, photoUrls, latlng } = this.state
+    this.props.createProduct(name, price, photoUrls, latlng, description);
   }
 
   handleRemove = (key) => {
@@ -55,8 +51,7 @@ class ProductCreate extends Component {
   }
 
   componentDidMount() {
-    this.handleGetLocation();
-    this.props.navigation.setParams({ handlePost: this.postProduct });
+    this.handleGetLocation(); 
   }
 
   render() {
@@ -82,6 +77,7 @@ class ProductCreate extends Component {
               <Input value={description} onChangeText={(description) => this.setState({description})} />
             </Item>
           </Form>
+          <Button block onPress={() => this.handlePost()}><Text>POST</Text></Button>
         </ScrollView>
       </Content>
     )

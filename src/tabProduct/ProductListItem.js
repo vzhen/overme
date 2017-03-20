@@ -22,8 +22,8 @@ const styles = {
 };
 
 class ProductListItem extends Component {
-  handleSelect() {
-    this.props.onSelect();
+  handleSelectProduct() {
+    this.props.onSelectProduct();
   }
 
   handleSelectUser() {
@@ -34,16 +34,16 @@ class ProductListItem extends Component {
     return (
       <Card style={styles.card}>
         
-        <CardItem style={{ padding: 0 }} button onPress={() => this.handleSelect()}>
+        <CardItem style={{ padding: 0 }} button onPress={() => this.handleSelectProduct()}>
           <Image source={{ uri: this.props.photoUrl }} resizeMode='cover' style={styles.productPhoto} />
         </CardItem>
         
-        <CardItem style={styles.titleWrap} button onPress={() => this.handleSelect()}>
+        <CardItem style={styles.titleWrap} button onPress={() => this.handleSelectProduct()}>
           <Text>{this.props.name}</Text>
         </CardItem>
 
         <CardItem>
-          <Left><Distance location1={this.props.location1} location2={this.props.locations} /></Left>
+          <Left><Distance location1={this.props.location1} location2={this.props.location2} /></Left>
           <Right><Text>RM {this.props.price}</Text></Right>
         </CardItem>
         

@@ -10,7 +10,7 @@ import TabBarNavigation from '../tabBar/TabBarNavigation';
 
 class App extends Component {
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk, ReduxLogger()));
     return (
       <Provider store={store}>
         <TabBarNavigation />

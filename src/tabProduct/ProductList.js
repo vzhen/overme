@@ -24,20 +24,39 @@ class ProductList extends Component {
     }),
   }
 
-  handleSelect(id) {
-    this.props.navigation.navigate('Product', { id });
+  constructor() {
+    super();
+    this.state = {
+      userPosition: [31, -171] // Default lat lng
+    }
+  }
+
+  handleGetCurrentPosition() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({
+        userPosition: [position.coords.latitude, position.coords.longitude]
+      })
+    })
+  }
+
+  handleSelectProduct(productId) {
+    this.props.navigation.navigate('Product', { productId });
   }
 
   handleSelectUser() {
-    console.log('select user');
+    console.log('navigate to user product page');
   }
 
   componentDidMount() {
+    this.handleGetCurrentPosition();
+
+    // TODO: use dynamic user id.
     this.props.getProductsByUserId('sms|5797235fe618d33da2eb0ad3');
   }
 
   render() {
     const { products } = this.props;
+    // TODO: user dynamic user id.
     const uid = 'sms|5797235fe618d33da2eb0ad3';
     return (
       <Content style={styles.content}>
@@ -45,15 +64,15 @@ class ProductList extends Component {
           dataArray={products[uid]}
           renderRow={(data, sectionId, rowId) => 
             <ProductListItem
-              onSelect={() => this.handleSelect(rowId)}
-              onSelectUser={() => this.handleSelectUser()}
-              photoUrl={data.photoUrl}
               name={data.name}
               price={data.price}
-              location1={[38.44, -122.41]}
-              location2={data.location}
+              photoUrl={data.photoUrl}
               ownerName={data.owner.name}
               ownerPhotoUrl={data.owner.photoUrl}
+              location1={this.state.userPosition}
+              location2={data.location}
+              onSelectProduct={() => this.handleSelectProduct(rowId)}
+              onSelectUser={() => this.handleSelectUser()}
             />
         } />
       </Content>

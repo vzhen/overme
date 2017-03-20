@@ -61,7 +61,7 @@ class Product extends Component {
   }
 
   componentDidMount() {
-    this.props.getProductById(this.props.navigation.state.params.id);
+    this.props.getProductById(this.props.navigation.state.params.productId);
   }
 
   renderOwner(data) {
@@ -88,7 +88,6 @@ class Product extends Component {
 
   render() {
     const { navigation, product } = this.props;
-    const productId = navigation.state.params.id;
     return (
       <Content style={styles.content}>
         <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -107,15 +106,18 @@ class Product extends Component {
           </View> 
 
           <View style={styles.mapWrap}>
+            
             <MapView
               style={styles.map}
               region={{
+                // TODO: use dynamic lat lng
+                // TODO: calculate delta for display all markers
                 latitude: 38.784,
                 longitude: -122.41,
                 latitudeDelta: 0.9,
                 longitudeDelta: 0.9,
               }}>
-              {this.renderMarkers(product.l)}
+              {this.renderMarkers(product.location)}
             </MapView>
           </View>
         </View>
