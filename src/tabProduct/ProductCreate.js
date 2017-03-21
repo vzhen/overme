@@ -70,6 +70,7 @@ class ProductCreate extends Component {
   }
 
   handlePost = () => {
+    // BUG: uploaded photo not in image format.
     const { name, price, description, photoUrls, latlng } = this.state
     this.props.createProduct(name, price, photoUrls, latlng, description);
   }

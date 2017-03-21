@@ -68,7 +68,7 @@ class ProductList extends Component {
               name={data.name}
               price={data.price}
               photoUrl={data.photoUrl}
-              ownerName={data.owner.name}
+              ownerName={data.owner.displayName}
               ownerPhotoUrl={data.owner.photoUrl}
               location1={this.state.userPosition}
               location2={data.location}

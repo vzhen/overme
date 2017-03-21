@@ -36,7 +36,7 @@ class Home extends Component {
               price={data.price}
               location1={this.props.center}
               location2={data.location}
-              ownerName={data.owner.name}
+              ownerName={data.owner.displayName}
               ownerPhotoUrl={data.owner.photoUrl}
             />
           }

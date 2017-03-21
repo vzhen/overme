@@ -78,7 +78,7 @@ class Product extends Component {
       return (
         <View style={styles.ownerWrap}>
           <Thumbnail small source={{ uri: data.photoUrl }} />
-          <Text style={{ paddingLeft: 10 }}>{data.name}</Text>
+          <Text style={{ paddingLeft: 10 }}>{data.displayName}</Text>
         </View>
       )
     }
