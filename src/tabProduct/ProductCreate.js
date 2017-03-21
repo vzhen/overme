@@ -55,14 +55,18 @@ class ProductCreate extends Component {
 
   handleGetLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
       this.setState({
-        latlng: [position.coords.latitude, position.coords.longitude]
+        latlng: [latitude, longitude]
       })
     })
   }
 
-  handleRegionChangeComplete(region) {
-    console.log(region);
+  handleRegionChange = (region) => {
+    const { latitude, longitude } = region;
+    this.setState({
+      latlng: [latitude, longitude]
+    })
   }
 
   handlePost = () => {
@@ -119,7 +123,7 @@ class ProductCreate extends Component {
           <View style={styles.mapWrap}>
             <MapView
               style={styles.map}
-              onRegionChangeComplete={this.handleRegionChangeComplete}
+              onRegionChange={this.handleRegionChange}
               region={{
                 // TODO: calculate delta for display all markers
                 latitude: latlng[0],
