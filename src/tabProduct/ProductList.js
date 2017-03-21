@@ -33,8 +33,9 @@ class ProductList extends Component {
 
   handleGetCurrentPosition() {
     navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
       this.setState({
-        userPosition: [position.coords.latitude, position.coords.longitude]
+        userPosition: [latitude, longitude]
       })
     })
   }

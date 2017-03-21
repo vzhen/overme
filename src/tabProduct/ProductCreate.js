@@ -1,12 +1,41 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { View, Image, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
 import uuidV4 from 'uuid/v4';
 import _ from 'lodash';
+import MapView from 'react-native-maps';
 import { createProduct } from '../app/actions';
 import MultiImagePicker from '../common/MultiImagePicker';
 import ImageList from '../common/ImageList';
+
+const { width, height } = Dimensions.get('window');
+const styles = {
+  mapWrap: {
+    position: 'relative',
+    height: 300,
+    width: width - 30,
+    marginLeft: 15,
+    marginRight: 15
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  markerWrap: {
+    position: 'absolute', 
+    top: 0, 
+    bottom: 0, 
+    left: 0, 
+    right: 0, 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    backgroundColor: 'transparent'
+  },
+  marker: {
+    width: 32,
+    height: 32
+  }
+}
 
 class ProductCreate extends Component {
   static navigationOptions = {
@@ -32,6 +61,10 @@ class ProductCreate extends Component {
     })
   }
 
+  handleRegionChangeComplete(region) {
+    console.log(region);
+  }
+
   handlePost = () => {
     const { name, price, description, photoUrls, latlng } = this.state
     this.props.createProduct(name, price, photoUrls, latlng, description);
@@ -55,14 +88,17 @@ class ProductCreate extends Component {
   }
 
   render() {
-    const { name, price, description, photoUrls } = this.state;
+    const { name, price, description, photoUrls, latlng } = this.state;
     return (
       <Content>
+
         <ScrollView horizontal>
           <ImageList editable images={photoUrls} onRemove={(key) => this.handleRemove(key)}/>
         </ScrollView>
+
         <ScrollView>
           <MultiImagePicker onSelect={(uri) => this.handleSelect(uri)} />
+
           <Form>
             <Item fixedLabel>
               <Label>Product Name</Label>
@@ -77,7 +113,29 @@ class ProductCreate extends Component {
               <Input value={description} onChangeText={(description) => this.setState({description})} />
             </Item>
           </Form>
+
           <Button block onPress={() => this.handlePost()}><Text>POST</Text></Button>
+          
+          <View style={styles.mapWrap}>
+            <MapView
+              style={styles.map}
+              onRegionChangeComplete={this.handleRegionChangeComplete}
+              region={{
+                // TODO: calculate delta for display all markers
+                latitude: latlng[0],
+                longitude: latlng[1],
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
+              }}>
+            </MapView>
+
+            <View pointerEvents="none" style={styles.markerWrap}>
+              <Image
+                style={styles.marker}
+                pointerEvents="none" 
+                source={{ uri: 'https://goo.gl/BiYizF' }} />
+            </View>
+          </View>
         </ScrollView>
       </Content>
     )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, View, Text, ScrollView, StyleSheet } from 'react-native';
-import { Thumbnail, Content, H1, H2, H3, Left, Right, Card, CardItem, Grid, Col, Row } from 'native-base';
+import { Button, Thumbnail, Content, H1, H2, H3, Left, Right, Card, CardItem, Grid, Col, Row } from 'native-base';
 import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
 import { getProductById } from '../app/actions';
@@ -55,6 +55,15 @@ const styles = {
 }
 
 class Product extends Component {
+  static navigationOptions = {
+    header: ({ navigate }) => ({
+      right: (
+        <Button onPress={() => navigate('ProductEdit')}>
+          <Text>Edit</Text>
+        </Button>
+      ),
+    }),
+  }
 
   constructor() {
     super()
@@ -106,7 +115,6 @@ class Product extends Component {
           </View> 
 
           <View style={styles.mapWrap}>
-            
             <MapView
               style={styles.map}
               region={{
