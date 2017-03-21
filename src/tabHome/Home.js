@@ -10,7 +10,7 @@ class Home extends Component {
     title: 'Home'
   }
 
-  handleSelect(id) {
+  handleSelectProduct(id) {
     console.log(id);
   }
 
@@ -19,20 +19,17 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.getNearbyProducts([37.79, -122.41], 10);
+    this.props.getNearbyProducts(10);
   }
 
   render() {
-    console.log
     return (
       <View>
-        <Text>My LatLng: {this.props.center}</Text>
-        <Text>Show products within: {this.props.radius}km</Text>
         <List
           dataArray={this.props.nearbyProducts}
           renderRow={(data, sectionId, rowId) => 
             <ProductListItem
-              onSelect={() => this.handleSelect(rowId)}
+              onSelectProduct={() => this.handleSelectProduct(rowId)}
               onSelectUser={() => this.handleSelectUser()}
               photoUrl={data.photoUrls.id1}
               name={data.name}
@@ -51,8 +48,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return { 
-    center: state.entities.home.center,
-    radius: state.entities.home.radius,
+    userPosition: state.entities.home.userPosition,
     nearbyProducts: state.entities.home.nearbyProducts
   }
 }

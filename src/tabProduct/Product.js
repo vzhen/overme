@@ -110,12 +110,11 @@ class Product extends Component {
             <MapView
               style={styles.map}
               region={{
-                // TODO: use dynamic lat lng
                 // TODO: calculate delta for display all markers
-                latitude: 38.784,
-                longitude: -122.41,
-                latitudeDelta: 0.9,
-                longitudeDelta: 0.9,
+                latitude: product.location[0],
+                longitude: product.location[1],
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
               }}>
               {this.renderMarkers(product.location)}
             </MapView>

@@ -8,7 +8,12 @@ import _ from 'lodash';
 
 const INITIAL_STATE = {
   list: {},
-  viewed: {}
+  viewed: {
+    location: {
+      0: 31,
+      1: -171
+    }
+  }
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -16,7 +21,6 @@ export default (state = INITIAL_STATE, action) => {
     
     case LISTENING_PRODUCT_SUCCEEDED: {
       const { key, location } = action.payload;
-      console.log(key, location);
       return { ...state, viewed: action.payload };
     }
 
