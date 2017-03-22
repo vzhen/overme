@@ -13,12 +13,23 @@ const tabBarConfiguration = {
   initialRouteName: 'TabProductNavigation',
   tabBarPosition: 'bottom',
   tabBarOptions: {
+    style: {
+      backgroundColor: '#ffffff',
+      borderTopColor: '#a6a6a6',
+      borderTopWidth: 0.5,
+      elevation: 0
+    },
+    labelStyle: {
+      color: 'black',
+    },
+    indicatorStyle: {
+      backgroundColor: '#FFFFFF'
+    }
     // activeTintColor: 'white',
     // inactiveTintColor: 'blue',
-    // activeTintColor: 'white',
-    // actionBackgroundColor: 'blue',
+    // actionBackgroundColor: 'white',
     // inactionBackgroundColor: 'white',
-  }
+  },
 }
 
 export const TabBar = TabNavigator(routeConfiguration, tabBarConfiguration)

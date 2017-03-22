@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
-import { Content, List, Text } from 'native-base';
+import { View, StyleSheet } from 'react-native';
+import { Content, List, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
 import { getProductsByUserId } from '../app/actions';
 import ProductListItem from './ProductListItem';
@@ -16,10 +16,9 @@ class ProductList extends Component {
     title: 'Products',
     header: ({ navigate }) => ({
       right: (
-        <Button
-          title='Add'
-          onPress={() => navigate('ProductCreate')}
-        />
+        <Button transparent onPress={() => navigate('ProductCreate')}>
+          <Text>Add</Text>
+        </Button>
       ),
     }),
   }
@@ -67,9 +66,9 @@ class ProductList extends Component {
             <ProductListItem
               name={data.name}
               price={data.price}
-              photoUrl={data.photoUrl}
+              photoURL={data.photoURL}
               ownerName={data.owner.displayName}
-              ownerPhotoUrl={data.owner.photoUrl}
+              ownerPhotoURL={data.owner.photoURL}
               location1={this.state.userPosition}
               location2={data.location}
               onSelectProduct={() => this.handleSelectProduct(rowId)}

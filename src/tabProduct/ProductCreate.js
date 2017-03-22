@@ -13,10 +13,8 @@ const { width, height } = Dimensions.get('window');
 const styles = {
   mapWrap: {
     position: 'relative',
-    height: 300,
-    width: width - 30,
-    marginLeft: 15,
-    marginRight: 15
+    height: 200,
+    width: width,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -47,9 +45,11 @@ class ProductCreate extends Component {
     this.state = {
       name: '',
       price: '',
-      photoUrls: {},
+      photoURLs: {},
       description: '',
-      latlng: [30, 170]
+      latlng: [30, 170],
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
     }
   }
 
@@ -63,28 +63,30 @@ class ProductCreate extends Component {
   }
 
   handleRegionChange = (region) => {
-    const { latitude, longitude } = region;
+    const { latitude, longitude, latitudeDelta, longitudeDelta } = region;
     this.setState({
-      latlng: [latitude, longitude]
+      latlng: [latitude, longitude],
+      latitudeDelta,
+      longitudeDelta
     })
   }
 
   handlePost = () => {
     // BUG: uploaded photo not in image format.
-    const { name, price, description, photoUrls, latlng } = this.state
-    this.props.createProduct(name, price, photoUrls, latlng, description);
+    const { name, price, description, photoURLs, latlng } = this.state
+    this.props.createProduct(name, price, photoURLs, latlng, description);
   }
 
   handleRemove = (key) => {
     this.setState({
-      photoUrls: _.omit(this.state.photoUrls, key)
+      photoURLs: _.omit(this.state.photoURLs, key)
     })
   }
 
   handleSelect = (uri) => {
     const uuid = uuidV4();
     this.setState({
-      photoUrls: { ...this.state.photoUrls, [uuid]: uri }
+      photoURLs: { ...this.state.photoURLs, [uuid]: uri }
     })
   }
 
@@ -93,18 +95,41 @@ class ProductCreate extends Component {
   }
 
   render() {
-    const { name, price, description, photoUrls, latlng } = this.state;
+    const { name, price, description, photoURLs, latlng, latitudeDelta, longitudeDelta } = this.state;
     return (
       <Content>
 
+<View style={styles.mapWrap}>
+          <MapView
+            style={styles.map}
+            onRegionChange={this.handleRegionChange}
+            region={{
+              // TODO: calculate delta for display all markers
+              latitude: latlng[0],
+              longitude: latlng[1],
+              latitudeDelta: latitudeDelta,
+              longitudeDelta: longitudeDelta
+            }}>
+          </MapView>
+
+          <View pointerEvents="none" style={styles.markerWrap}>
+            <Image
+              style={styles.marker}
+              pointerEvents="none" 
+              source={{ uri: 'https://goo.gl/BiYizF' }} />
+          </View>
+        </View>
+
         <ScrollView horizontal>
-          <ImageList editable images={photoUrls} onRemove={(key) => this.handleRemove(key)}/>
+          <ImageList editable images={photoURLs} onRemove={(key) => this.handleRemove(key)}/>
         </ScrollView>
 
         <ScrollView>
-          <MultiImagePicker onSelect={(uri) => this.handleSelect(uri)} />
 
           <Form>
+            <Item fixedLabel>
+              <MultiImagePicker onSelect={(uri) => this.handleSelect(uri)} />
+            </Item>
             <Item fixedLabel>
               <Label>Product Name</Label>
               <Input value={name} onChangeText={(name) => this.setState({name})} />
@@ -120,27 +145,7 @@ class ProductCreate extends Component {
           </Form>
 
           <Button block onPress={() => this.handlePost()}><Text>POST</Text></Button>
-          
-          <View style={styles.mapWrap}>
-            <MapView
-              style={styles.map}
-              onRegionChange={this.handleRegionChange}
-              region={{
-                // TODO: calculate delta for display all markers
-                latitude: latlng[0],
-                longitude: latlng[1],
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,
-              }}>
-            </MapView>
 
-            <View pointerEvents="none" style={styles.markerWrap}>
-              <Image
-                style={styles.marker}
-                pointerEvents="none" 
-                source={{ uri: 'https://goo.gl/BiYizF' }} />
-            </View>
-          </View>
         </ScrollView>
       </Content>
     )

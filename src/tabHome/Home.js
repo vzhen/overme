@@ -19,10 +19,12 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.getNearbyProducts(10);
+    this.props.getNearbyProducts(1000);
   }
 
   render() {
+    const userLatitude = this.props.userPosition.coords.latitude;
+    const userLongitude = this.props.userPosition.coords.longitude;
     return (
       <View>
         <List
@@ -31,13 +33,13 @@ class Home extends Component {
             <ProductListItem
               onSelectProduct={() => this.handleSelectProduct(rowId)}
               onSelectUser={() => this.handleSelectUser()}
-              photoUrl={data.photoUrls.id1}
+              photoURL={data.photoURLs.id1}
               name={data.name}
               price={data.price}
-              location1={this.props.center}
+              location1={[userLatitude, userLongitude]}
               location2={data.location}
               ownerName={data.owner.displayName}
-              ownerPhotoUrl={data.owner.photoUrl}
+              ownerPhotoURL={data.owner.photoURL}
             />
           }
         />

@@ -1,8 +1,9 @@
 import firebase from '../app/FirebaseInit';
 import GeoFire from 'geofire';
 
-const productsRef = firebase.database().ref('products');
-const geoFire = new GeoFire(firebase.database().ref('productGeo'));
+const rootRef = firebase.database().ref();
+const productsRef = rootRef.child('products');
+const geoFire = new GeoFire(rootRef.child('productGeo'));
 
 const getNearbyProducts = (radius) => {
   return (dispatch, getState) => {

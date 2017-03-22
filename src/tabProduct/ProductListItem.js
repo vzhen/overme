@@ -35,7 +35,7 @@ class ProductListItem extends Component {
       <Card style={styles.card}>
         
         <CardItem style={{ padding: 0 }} button onPress={() => this.handleSelectProduct()}>
-          <Image source={{ uri: this.props.photoUrl }} resizeMode='cover' style={styles.productPhoto} />
+          <Image source={{ uri: this.props.photoURL }} resizeMode='cover' style={styles.productPhoto} />
         </CardItem>
         
         <CardItem style={styles.titleWrap} button onPress={() => this.handleSelectProduct()}>
@@ -49,7 +49,7 @@ class ProductListItem extends Component {
         
         <CardItem button onPress={() => this.handleSelectUser()}>
           <Left>
-              <Thumbnail small source={{ uri: this.props.ownerPhotoUrl }} />
+              <Thumbnail small source={{ uri: this.props.ownerPhotoURL }} />
               <Text>{this.props.ownerName}</Text>
           </Left>
         </CardItem>

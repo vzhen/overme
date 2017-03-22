@@ -44,10 +44,8 @@ const styles = {
   
   mapWrap: {
     position: 'relative',
-    height: 300,
-    width: width - 30,
-    marginLeft: 15,
-    marginRight: 15
+    height: 200,
+    width: width
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -58,7 +56,7 @@ class Product extends Component {
   static navigationOptions = {
     header: ({ navigate }) => ({
       right: (
-        <Button onPress={() => navigate('ProductEdit')}>
+        <Button transparent onPress={() => navigate('ProductEdit')}>
           <Text>Edit</Text>
         </Button>
       ),
@@ -77,7 +75,7 @@ class Product extends Component {
     if (data) {
       return (
         <View style={styles.ownerWrap}>
-          <Thumbnail small source={{ uri: data.photoUrl }} />
+          <Thumbnail small source={{ uri: data.photoURL }} />
           <Text style={{ paddingLeft: 10 }}>{data.displayName}</Text>
         </View>
       )
@@ -100,20 +98,6 @@ class Product extends Component {
     return (
       <Content style={styles.content}>
         <View style={{ flex: 1, flexDirection: 'column' }}>
-          <ScrollView horizontal>
-            <ImageList images={product.photoUrls} />
-          </ScrollView>
-
-          {this.renderOwner(product.owner)}
-
-          <View style={styles.detailWrap}>
-            <View style={styles.titleWrap}>
-              <View style={styles.title}><H3>{product.name}</H3></View>
-              <View style={styles.price}><Text style={{ fontSize: 16 }}>RM {product.price}</Text></View>
-            </View>
-            <Text>{product.description}</Text>
-          </View> 
-
           <View style={styles.mapWrap}>
             <MapView
               style={styles.map}
@@ -126,6 +110,18 @@ class Product extends Component {
               }}>
               {this.renderMarkers(product.location)}
             </MapView>
+          </View>
+
+          <ScrollView horizontal>
+            <ImageList images={product.photoURLs} />
+          </ScrollView>
+          {this.renderOwner(product.owner)}
+          <View style={styles.detailWrap}>
+            <View style={styles.titleWrap}>
+              <View style={styles.title}><H3>{product.name}</H3></View>
+              <View style={styles.price}><Text style={{ fontSize: 16 }}>RM {product.price}</Text></View>
+            </View>
+            <Text>{product.description}</Text>
           </View>
         </View>
       </Content>

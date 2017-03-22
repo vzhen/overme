@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RNImagePicker from 'react-native-image-picker';
-import { Platform, Button, View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { Platform, View, StyleSheet, Image, ScrollView } from 'react-native';
+import { Button, Text } from 'native-base';
 
 class MultiImagePicker extends Component {
   handleOpenImageLibrary = () => {
@@ -17,7 +18,9 @@ class MultiImagePicker extends Component {
   render() {
     return (
       <View>
-        <Button onPress={() => this.handleOpenImageLibrary()} title='Choose Photo' />
+        <Button light onPress={() => this.handleOpenImageLibrary()}>
+          <Text>Upload Photos</Text>
+        </Button>
       </View>
     )
   }

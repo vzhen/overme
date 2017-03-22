@@ -1,6 +1,11 @@
 const INITIAL_STATE = {
-  userPosition: {},
   radius: 0,
+  userPosition: {
+    coords: {
+      latitude: 30,
+      longitude: 170
+    }
+  },
   nearbyProducts: {}
 };
 

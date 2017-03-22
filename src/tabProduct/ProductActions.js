@@ -77,7 +77,7 @@ export const getProductsByUserId = (uid) => {
   }
 }
 
-export const createProduct = (name, price, photoUrls, latlng, description) => {
+export const createProduct = (name, price, photoURLs, latlng, description) => {
   // TODO: disable form while submitting
   // TODO: enable form while wrong input
 
@@ -86,7 +86,7 @@ export const createProduct = (name, price, photoUrls, latlng, description) => {
   const uploadPromises = [];
   const owner = {
     displayName: currentUser.displayName,
-    photoUrl: currentUser.photoURL ,
+    photoURL: currentUser.photoURL,
     uid: currentUser.uid
   };
   return (dispatch) => {
@@ -94,13 +94,13 @@ export const createProduct = (name, price, photoUrls, latlng, description) => {
       console.log('name is required');
     } else if (!validator.isNumeric(price) && !validator.isDecimal(price)) {
       console.log('price must be number only.');
-    } else if (_.isEmpty(photoUrls)) {
+    } else if (_.isEmpty(photoURLs)) {
       console.log('photo is required');
     } else {
-      for (let key in photoUrls) {
+      for (let key in photoURLs) {
           // Make sure there is new photo picked
-          if (photoUrls.hasOwnProperty(key)) {
-            uploadPromises.push(uploadImage(photoUrls[key], 'images/products'));
+          if (photoURLs.hasOwnProperty(key)) {
+            uploadPromises.push(uploadImage(photoURLs[key], 'images/products'));
           }
       }
 
@@ -114,15 +114,48 @@ export const createProduct = (name, price, photoUrls, latlng, description) => {
             const photoKey = photoPushed.key;
             photoObj[photoKey] = urls[i];
           }
-          const productData = { name, price, description, owner, photoUrls: photoObj };
+          const productData = { name, price, description, owner, photoURLs: photoObj };
           const newProductKey = productsRef.push().key;
           productGeoFire.set(newProductKey, latlng);
-          productsRef.child(newProductKey).update(productData).then(() => {
-            dispatch(NavigationActions.back());
-          });
+          productsRef.child(newProductKey)
+            .update(productData)
+            .then(() => {
+              dispatch(NavigationActions.back());
+            });
         }
       })
   
+    }
+  }
+}
+
+export const updateProduct = (key, name, price, photoURLs, latlng, description) => {
+  const uploadPromises = [];
+  return (dispatch) => {
+    if (validator.isEmpty(name)) {
+      console.log('name is required');
+    } else if (!validator.isNumeric(price) && !validator.isDecimal(price)) {
+      console.log('price must be number only.');
+    } else if (_.isEmpty(photoURLs)) {
+      console.log('photo is required');
+    } else {
+      
+      for (let key in photoURLs) {
+        if (photoURLs.hasOwnProperty(key)) {
+          // Check if use select new photo
+          if (!photoURLs[key].startsWith('http')) {
+            uploadPromises.push(uploadImage(photoURLs[key], 'images/products'));
+          }
+        }
+      }
+
+      productGeoFire.set(key, latlng);
+      productsRef.child(key)
+        .update({ name, price, description })
+        .then(() => {
+          dispatch(NavigationActions.back());
+        })
+      
     }
   }
 }
