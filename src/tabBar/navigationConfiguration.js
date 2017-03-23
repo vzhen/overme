@@ -10,7 +10,7 @@ const routeConfiguration = {
 }
 
 const tabBarConfiguration = {
-  initialRouteName: 'TabProductNavigation',
+  initialRouteName: 'TabSettingNavigation',
   tabBarPosition: 'bottom',
   tabBarOptions: {
     style: {
