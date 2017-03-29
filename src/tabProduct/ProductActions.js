@@ -10,7 +10,7 @@ import {
   UPDATING_PRODUCTS_SUCCEEDED,
   REMOVING_PRODUCTS_SUCCEEDED,
 } from '../constants/ActionTypes';
-import { uploadImage } from '../app/actions';
+import { uploadImage } from '../utility/image';
 
 const rootRef = firebase.database().ref();
 const productsRef = rootRef.child('products');

@@ -10,8 +10,8 @@ class Home extends Component {
     title: 'Home'
   }
 
-  handleSelectProduct(id) {
-    console.log(id);
+  handleSelectProduct(productId) {
+    this.props.navigation.navigate('Product', { productId });
   }
 
   handleSelectUser() {
@@ -19,7 +19,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.getNearbyProducts(1000);
+    this.props.getNearbyProducts(1); // by km
   }
 
   render() {

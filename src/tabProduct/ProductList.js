@@ -59,10 +59,11 @@ class ProductList extends Component {
     // TODO: user dynamic user id.
     const uid = 'sms|5797235fe618d33da2eb0ad3';
     return (
-      <Content style={styles.content}>
+      <View>
         <List
           dataArray={products[uid]}
-          renderRow={(data, sectionId, rowId) => 
+          removeClippedSubviews={false}
+          renderRow={(data, sectionId, rowId) =>
             <ProductListItem
               name={data.name}
               price={data.price}
@@ -75,7 +76,7 @@ class ProductList extends Component {
               onSelectUser={() => this.handleSelectUser()}
             />
         } />
-      </Content>
+      </View>
     )
   }
 }

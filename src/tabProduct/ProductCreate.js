@@ -7,7 +7,7 @@ import _ from 'lodash';
 import MapView from 'react-native-maps';
 import { createProduct } from '../app/actions';
 import MultiImagePicker from '../common/MultiImagePicker';
-import ImageList from '../common/ImageList';
+import ImageSwiper from '../common/ImageSwiper';
 
 const { width, height } = Dimensions.get('window');
 const styles = {
@@ -83,11 +83,12 @@ class ProductCreate extends Component {
     })
   }
 
-  handleSelect = (uri) => {
+  handleSelect = (response) => { 
     const uuid = uuidV4();
     this.setState({
-      photoURLs: { ...this.state.photoURLs, [uuid]: uri }
+      photoURLs: { ...this.state.photoURLs, [uuid]: response.uri }
     })
+    console.log(this.state);
   }
 
   componentDidMount() {
@@ -98,8 +99,7 @@ class ProductCreate extends Component {
     const { name, price, description, photoURLs, latlng, latitudeDelta, longitudeDelta } = this.state;
     return (
       <Content>
-
-<View style={styles.mapWrap}>
+        <View style={styles.mapWrap}>
           <MapView
             style={styles.map}
             onRegionChange={this.handleRegionChange}
@@ -120,15 +120,12 @@ class ProductCreate extends Component {
           </View>
         </View>
 
-        <ScrollView horizontal>
-          <ImageList editable images={photoURLs} onRemove={(key) => this.handleRemove(key)}/>
-        </ScrollView>
+        <ImageSwiper editable images={photoURLs} onRemove={(key) => this.handleRemove(key)}/>
 
         <ScrollView>
-
           <Form>
             <Item fixedLabel>
-              <MultiImagePicker onSelect={(uri) => this.handleSelect(uri)} />
+              <MultiImagePicker onSelect={(response) => this.handleSelect(response)} />
             </Item>
             <Item fixedLabel>
               <Label>Product Name</Label>

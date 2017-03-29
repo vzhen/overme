@@ -58,7 +58,6 @@ export const listeningUserProfile = () => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         const userProfileRef = firebase.database().ref(`userProfile/${user.uid}`);
         userProfileRef.on('child_added', (snapshot) => {
 

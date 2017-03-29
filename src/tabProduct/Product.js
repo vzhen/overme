@@ -3,8 +3,9 @@ import { Dimensions, View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Button, Thumbnail, Content, H1, H2, H3, Left, Right, Card, CardItem, Grid, Col, Row } from 'native-base';
 import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
+import ImageSlider from 'react-native-image-slider';
 import { getProductById } from '../app/actions';
-import ImageList from '../common/ImageList';
+import ImageSwiper from '../common/ImageSwiper';
 
 const { width, height } = Dimensions.get('window');
 
@@ -112,9 +113,8 @@ class Product extends Component {
             </MapView>
           </View>
 
-          <ScrollView horizontal>
-            <ImageList images={product.photoURLs} />
-          </ScrollView>
+          <ImageSwiper images={product.photoURLs} />
+          
           {this.renderOwner(product.owner)}
           <View style={styles.detailWrap}>
             <View style={styles.titleWrap}>

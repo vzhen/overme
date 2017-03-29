@@ -9,8 +9,7 @@ class MultiImagePicker extends Component {
       if (response.didCancel) {
         // toDoSomething...
       } else {
-        const uploadUri = Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri;
-        this.props.onSelect(uploadUri);
+        this.props.onSelect(response);
       }
     });
   }

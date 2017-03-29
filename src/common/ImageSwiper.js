@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, Button } from 'react-native';
+import { View, Image, StyleSheet, Button, ScrollView } from 'react-native';
 
 /**
  * attributes
@@ -8,10 +8,10 @@ import { View, Image, StyleSheet, Button } from 'react-native';
  *  - editable (optional)
  * 
  * Usage
- *  <ImageList editable images={photoURLs} onRemove={(key) => this.handleRemove(key)}/>
+ *  <ImageSwiper editable images={photoURLs} onRemove={(key) => this.handleRemove(key)}/>
  */ 
 
-class ImageList extends Component {
+class ImageSwiper extends Component {
   handleRemove = (key) => {
     this.props.onRemove(key);
   }
@@ -25,17 +25,22 @@ class ImageList extends Component {
   renderImage = () => {
     return Object.keys(this.props.images).map((key, index) => {
       return (
-        <View key={key}>
-          <Image source={{ uri: this.props.images[key] }} style={styles.imagePreview} />
-          {this.renderRemoveButton(key)}
-        </View>
+          <View key={key}>
+            <Image source={{ uri: this.props.images[key] }} style={styles.imagePreview} />
+            {this.renderRemoveButton(key)}
+          </View>
       )
     })
   }
 
   render() {
     return (
-      <View style={styles.container} >{this.renderImage()}</View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.container}
+      >{this.renderImage()}
+      </ScrollView>
     )
   }
 }
@@ -51,9 +56,9 @@ const styles = StyleSheet.create({
   }
 })
 
-ImageList.defaultProps = {
+ImageSwiper.defaultProps = {
   editable: false,
   images: {}
 }
 
-export default ImageList;
+export default ImageSwiper;

@@ -40,6 +40,7 @@ class ProductListItem extends Component {
         
         <CardItem style={styles.titleWrap} button onPress={() => this.handleSelectProduct()}>
           <Text>{this.props.name}</Text>
+          <Text>sdf</Text>
         </CardItem>
 
         <CardItem>

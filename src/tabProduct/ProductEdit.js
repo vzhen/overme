@@ -7,7 +7,7 @@ import _ from 'lodash';
 import MapView from 'react-native-maps';
 import { updateProduct } from '../app/actions';
 import MultiImagePicker from '../common/MultiImagePicker';
-import ImageList from '../common/ImageList';
+import ImageSwiper from '../common/ImageSwiper';
 
 const { width, height } = Dimensions.get('window');
 const styles = {
@@ -131,7 +131,7 @@ class ProductEdit extends Component {
 
         <ScrollView>
           <ScrollView horizontal>
-            <ImageList editable images={photoURLs} onRemove={(key) => this.handleRemove(key)}/>
+            <ImageSwiper editable images={photoURLs} onRemove={(key) => this.handleRemove(key)}/>
           </ScrollView>
 
           <MultiImagePicker onSelect={(uri) => this.handleSelect(uri)} />

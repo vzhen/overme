@@ -26,7 +26,7 @@ export default (state = INITIAL_STATE, action) => {
 
     case LOADING_PRODUCTS_SUCCEEDED: {
       const { uid, key, value, location } = action.payload;
-      const mergeValue = Object.assign({}, value, { location: location })
+      const mergeValue = Object.assign({}, value)
       return { ...state, list: { ...state.list, [uid]: { ...state.list[uid], [key]: mergeValue } } };
     }
 
